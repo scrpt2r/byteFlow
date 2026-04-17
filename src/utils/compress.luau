@@ -1,3 +1,24 @@
+--[[
+	******************************************************************************
+	* @file		: .../src/utils/compress.lua
+	* @author	: Scrpt2r
+	* @date		: April 16 2026
+	* @lastEdit	: April 17 2026 18:29
+	* @brief	: Buffer byte size decreaser.
+	* @version	: 0.1.5
+	******************************************************************************
+	* @attention
+	*
+	* Copyright © 2026 Axon Corporation.
+	* All rights reserved.
+	*
+	* This software is licensed under terms that can be found in the LICENSE file
+	* in the root directory of this software component.
+	* If no LICENSE file comes with this software, it is provided AS-IS.
+	*
+	******************************************************************************
+--]]
+
 --// Constants
 local COMPRESS_THRESHOLD = 64
 local WINDOW_SIZE = 4096

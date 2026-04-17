@@ -1,3 +1,24 @@
+--[[
+	******************************************************************************
+	* @file		: .../src/utils/constructor.lua
+	* @author	: Scrpt2r
+	* @date		: April 16 2026
+	* @lastEdit	: April 17 2026 18:31
+	* @brief	: Buffer packaging system to reduce network trafficing.
+	* @version	: 0.1.5
+	******************************************************************************
+	* @attention
+	*
+	* Copyright © 2026 Axon Corporation.
+	* All rights reserved.
+	*
+	* This software is licensed under terms that can be found in the LICENSE file
+	* in the root directory of this software component.
+	* If no LICENSE file comes with this software, it is provided AS-IS.
+	*
+	******************************************************************************
+--]]
+
 --// Services
 local runService = game:GetService("RunService")
 local messagingService = game:GetService("MessagingService")

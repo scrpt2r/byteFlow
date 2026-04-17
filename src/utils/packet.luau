@@ -1,3 +1,24 @@
+--[[
+	******************************************************************************
+	* @file		: .../src/utils/packet.lua
+	* @author	: Scrpt2r
+	* @date		: April 16 2026
+	* @lastEdit	: April 17 2026 18:30
+	* @brief	: Packet handler for ByteFlow.
+	* @version	: 0.1.5
+	******************************************************************************
+	* @attention
+	*
+	* Copyright © 2026 Axon Corporation.
+	* All rights reserved.
+	*
+	* This software is licensed under terms that can be found in the LICENSE file
+	* in the root directory of this software component.
+	* If no LICENSE file comes with this software, it is provided AS-IS.
+	*
+	******************************************************************************
+--]]
+
 --// Libs
 local types = require(script.Parent.Parent:WaitForChild("global"):WaitForChild("types"))
 
