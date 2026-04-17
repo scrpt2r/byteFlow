@@ -1,4 +1,3 @@
-local EditableService = game:GetService("EditableService")
 --// Constants
 local COMPRESS_THRESHOLD = 64
 local WINDOW_SIZE = 4096
