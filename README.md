@@ -75,10 +75,10 @@ local packet = constructor.packet
 --// You can edit packets in packet module before return.
 
 -- Client To Server -- if its a local script
-packet.register("clientPacketName", { channel = "reliable", direction = "c2s" }) -- "c2s" means client to server.
+packet.define("clientPacketName", { channel = "reliable", direction = "c2s" }) -- "c2s" means client to server.
 
 -- Server To Client -- if its a server script
-packet.register("serverPacketName", { channel = "reliable", direction = "s2c" }) -- "s2c" means server to client.
+packet.define("serverPacketName", { channel = "reliable", direction = "s2c" }) -- "s2c" means server to client.
 ```
 
 **Example fire and recieve (on):**
