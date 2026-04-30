@@ -26,10 +26,10 @@ local replicatedStorage = game:GetService("ReplicatedStorage")
 local players = game:GetService("Players")
 
 --// Libs
-local types = require(script.Parent:WaitForChild("global"):WaitForChild("types"))
-local bufferLib = require(script.Parent:WaitForChild("utils"):WaitForChild("buffer"))
-local packet = require(script.Parent:WaitForChild("utils"):WaitForChild("packet"))
-local compress = require(script.Parent:WaitForChild("utils"):WaitForChild("compress"))
+local types = require(script.Parent:WaitForChild("libs"):WaitForChild("global"):WaitForChild("types"))
+local bufferLib = require(script.Parent:WaitForChild("libs"):WaitForChild("utils"):WaitForChild("buffer"))
+local packet = require(script.Parent:WaitForChild("libs"):WaitForChild("utils"):WaitForChild("packet"))
+local compress = require(script.Parent:WaitForChild("libs"):WaitForChild("utils"):WaitForChild("compress"))
 
 --// Types
 export type _handler = types.handler
@@ -178,7 +178,7 @@ function processArgs(args: { any }, senderPlayer: Player?)
 	end)
 
 	if not ok then
-		warn("[byteFlow] packet error:", err)
+		warn("byteFlow: packet error:", err)
 	end
 end
 
@@ -285,7 +285,7 @@ function net.fire(packetName: string, ...: any)
 		local target = select(1, ...) :: Player
 		assert(
 			typeof(target) == "Instance" and target:IsA("Player"),
-			"[byteFlow] Server fire: first argument must be a Player"
+			"byteFlow: Server fire: first argument must be a Player"
 		)
 
 		local result = encode(id, select(2, ...))
@@ -300,7 +300,7 @@ function net.fire(packetName: string, ...: any)
 end
 
 function net.broadcast(packetName: string, ...: any)
-	assert(isServer, "[byteFlow] broadcast can only be used on the server")
+	assert(isServer, "byteFlow: broadcast can only be used on the server")
 
 	local def = packet.get(packetName)
 	local result = encode(def.id, ...)
@@ -314,7 +314,7 @@ function net.broadcast(packetName: string, ...: any)
 end
 
 function net.fireMany(packetName: string, targets: { Player }, ...: any)
-	assert(isServer, "[byteFlow] fireMany can only be used on the server")
+	assert(isServer, "byteFlow: fireMany can only be used on the server")
 
 	local def = packet.get(packetName)
 	local result = encode(def.id, ...)
@@ -330,7 +330,7 @@ function net.fireMany(packetName: string, targets: { Player }, ...: any)
 end
 
 function net.fireExpect(packetName: string, expect: Player, ...: any)
-	assert(isServer, "[byteFlow] fireExpect can only be used on the server")
+	assert(isServer, "byteFlow: fireExpect can only be used on the server")
 
 	local def = packet.get(packetName)
 	local result = encode(def.id, ...)
@@ -348,7 +348,7 @@ function net.fireExpect(packetName: string, expect: Player, ...: any)
 end
 
 function net.relay(packetName: string, target: Player, ...: any)
-	assert(isClient, "[byteFlow] relay can only be used on the client")
+	assert(isClient, "byteFlow: relay can only be used on the client")
 
 	local id = packet.id(packetName)
 	local result = encode(id, target, ...)
@@ -358,7 +358,7 @@ function net.relay(packetName: string, target: Player, ...: any)
 end
 
 function net.serverFire(packetName: string, ...: any)
-	assert(isServer, "[byteFlow] serverFire can only be used on the server")
+	assert(isServer, "byteFlow: serverFire can only be used on the server")
 	setupMessaging(packetName)
 
 	local data = { ... }
@@ -368,7 +368,7 @@ function net.serverFire(packetName: string, ...: any)
 end
 
 function net.serverOn(packetName: string, handler: handler)
-	assert(isServer, "[byteFlow] serverOn can only be used on the server")
+	assert(isServer, "byteFlow: serverOn can only be used on the server")
 	setupMessaging(packetName)
 
 	if not _msHandlers[packetName] then
