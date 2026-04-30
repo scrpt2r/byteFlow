@@ -5,7 +5,7 @@
 	* @date		: April 16 2026
 	* @lastEdit	: April 30 2026 21:34
 	* @brief	: A highly optimized, buffer-based networking architecture featuring automatic data compression, packet routing, and local signal broadcasting.
-    * @version  : 0.2.5
+    * @version  : 0.3.0
 	******************************************************************************
 	* @attention
 	*
@@ -20,4 +20,7 @@
 --]]
 
 --// Lib Decleration
-return require(script.constructor)
+return {
+	net = require(script.constructor),
+	packet = require(script.libs.utils.packet),
+}
