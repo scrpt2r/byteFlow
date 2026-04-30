@@ -2,7 +2,7 @@
   "name": "byteflow",
   "tree": {
     "$className": "ModuleScript",
-    "$path": "src/_index.luau",
+    "$path": "src/__index.luau",
     "libs": {
       "$path": "src/libs"
     },

@@ -5,7 +5,7 @@
 	* @date		: April 16 2026
 	* @lastEdit	: April 17 2026 18:31
 	* @brief	: Buffer packaging system to reduce network trafficing.
-	* @version	: 0.1.5
+	* @version	: 0.2.0
 	******************************************************************************
 	* @attention
 	*
@@ -48,7 +48,6 @@ local decode = bufferLib.decode
 local remoteFolder: Folder
 local reliableRemote: RemoteEvent
 local unreliableRemote: UnreliableRemoteEvent
-local bindableReliable: BindableEvent
 
 local _handlers = {} :: { [string]: { handler } }
 local _msHandlers = {} :: { [string]: { handler } }
@@ -83,12 +82,10 @@ function setupRemotes()
 
 		reliableRemote = getOrCreate("Reliable", "RemoteEvent") :: RemoteEvent
 		unreliableRemote = getOrCreate("Unreliable", "UnreliableRemoteEvent") :: UnreliableRemoteEvent
-		bindableReliable = getOrCreate("LocalBind", "BindableEvent") :: BindableEvent
 	else
 		remoteFolder = replicatedStorage:WaitForChild(REMOTE_FOLDER_NAME) :: Folder
 		reliableRemote = remoteFolder:WaitForChild("Reliable") :: RemoteEvent
 		unreliableRemote = remoteFolder:WaitForChild("Unreliable") :: UnreliableRemoteEvent
-		bindableReliable = remoteFolder:WaitForChild("LocalBind") :: BindableEvent
 	end
 end
 
@@ -226,14 +223,10 @@ else
 	end)
 end
 
-bindableReliable.Event:Connect(function(packetName: string, ...)
-	callHandlers(packetName, ...)
-end)
-
 --// Lib Decleration
 local net = {}
 
---// lib Functions
+--// Lib Functions
 function net.on(packetName: string, handler: handler)
 	addHandler(packetName, handler)
 end
@@ -337,12 +330,14 @@ function net.fireExpect(packetName: string, expect: Player, ...: any)
 	local args = pack(result)
 
 	for _, player in players:GetPlayers() do
-		if player ~= expect then
-			if def.channel == "unreliable" then
-				unreliableRemote:FireClient(player, table.unpack(args))
-			else
-				reliableRemote:FireClient(player, table.unpack(args))
-			end
+		if player == expect then
+			continue
+		end
+
+		if def.channel == "unreliable" then
+			unreliableRemote:FireClient(player, table.unpack(args))
+		else
+			reliableRemote:FireClient(player, table.unpack(args))
 		end
 	end
 end
@@ -379,7 +374,7 @@ function net.serverOn(packetName: string, handler: handler)
 end
 
 function net.localFire(packetName: string, ...: any)
-	bindableReliable:Fire(packetName, ...)
+	callHandlers(packetName, ...)
 end
 
 function net.localOn(packetName: string, handler: handler)
