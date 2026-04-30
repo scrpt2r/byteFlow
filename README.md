@@ -93,7 +93,7 @@ end)
 -- Server To Client
 net.fire("serverPacketName", game.Players.Roblox, "Hello World!") -- on server script
 
-net.on("serverPacketName", function(message: string)
+net.on("serverPacketName", function(message: string) -- on local script
     print("You recieved a message from server says:", message)
 end)
 ```
