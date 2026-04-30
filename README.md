@@ -67,7 +67,7 @@ Encodes and compresses dummy arguments to return network footprint metrics.
 **Require Module and Packet setup:**
 ```lua
 local replicatedStorage = game:GetService("ReplicatedStorage")
-local constructor = require(replicatedStorage.byteflow) --Chane your path if u have a diffrent one
+local constructor = require(replicatedStorage.byteflow) -- Change your path if u have a diffrent one
 
 local net = constructor.net
 local packet = constructor.packet
