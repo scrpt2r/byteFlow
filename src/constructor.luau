@@ -5,14 +5,10 @@ local replicatedStorage = game:GetService("ReplicatedStorage")
 local players = game:GetService("Players")
 
 --// Libs
-local encodingTechiques = require(script.Parent:WaitForChild("Packages"):WaitForChild("encodingTechniques"))
 local types = require(script.Parent:WaitForChild("libs"):WaitForChild("global"):WaitForChild("types"))
 local bufferLib = require(script.Parent:WaitForChild("libs"):WaitForChild("utils"):WaitForChild("buffer"))
 local packet = require(script.Parent:WaitForChild("libs"):WaitForChild("utils"):WaitForChild("packet"))
 local compress = require(script.Parent:WaitForChild("libs"):WaitForChild("utils"):WaitForChild("compress"))
-
-local base64 = encodingTechiques.base64
-local xor = encodingTechiques.xor
 
 --// Types
 export type _handler = types.handler
@@ -38,7 +34,6 @@ local _msHandlers = {} :: { [string]: { handler } }
 --// Constants
 local REMOTE_FOLDER_NAME = "NetRemotes"
 local MS_TOPIC_PREFIX = "Net_"
-local SECRET_KEY = "byteFlow_gizliKey_2024"
 
 --// Functions
 function setupRemotes()
@@ -73,33 +68,10 @@ function setupRemotes()
 	end
 end
 
-function encodeToHex(text: string, key: string)
-	local k1 = base64.encode(key)
-	local k2 = base64.encode(k1)
-
-	local step1 = xor.encodeText(text, k1)
-	local step2 = xor.encodeHex(step1, k2)
-
-	return step2
-end
-
-function decodeFromHex(encoded: string, key: string)
-	local k1 = base64.encode(key)
-	local k2 = base64.encode(k1)
-
-	local step1 = xor.decodeHex(encoded, k2)
-	local text = xor.decodeText(step1, k1)
-
-	return text
-end
-
 function pack(result: encodeResult): { any }
 	local compressed = compress.compress(result.buf)
 
-	local rawStr = buffer.tostring(compressed)
-	local encrypted = encodeToHex(rawStr, SECRET_KEY)
-
-	local args = { encrypted } :: { any }
+	local args = { compressed } :: { any }
 	for _, inst in result.instances do
 		table.insert(args, inst)
 	end
@@ -108,15 +80,9 @@ function pack(result: encodeResult): { any }
 end
 
 function _unpack(args: { any }): encodeResult?
-	local encrypted = args[1]
-	if type(encrypted) ~= "string" then
-		return nil
-	end
+	local compBuf = args[1]
 
-	local rawStr = decodeFromHex(encrypted, SECRET_KEY)
-	local compBuf = buffer.fromstring(rawStr)
 	local decompressed = compress.decompress(compBuf)
-
 	local instances = {} :: { Instance }
 
 	for i = 2, #args do
