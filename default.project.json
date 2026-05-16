@@ -7,6 +7,9 @@
     },
     "constructor": {
       "$path": "src/constructor.luau"
+    },
+    "Packages": {
+      "$path": "Packages"
     }
   }
 }

@@ -1,0 +1,9 @@
+{
+  "name": "encodingtechniques2",
+  "tree": {
+    "$path": "src/__index.luau",
+    "libs": {
+      "$path": "src/libs"
+    }
+  }
+}

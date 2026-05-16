@@ -1,0 +1,7 @@
+[package]
+name = "scrpt2r/encodingtechniques2"
+version = "1.0.1"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]

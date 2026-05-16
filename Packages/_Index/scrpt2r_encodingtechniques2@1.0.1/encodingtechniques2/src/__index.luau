@@ -1,11 +1,11 @@
 --[[
 	******************************************************************************
-	* @file		: .../src/utils/constructor.lua
-	* @author	: Scrpt2r
-	* @date		: April 16 2026
-	* @lastEdit	: April 30 2026 21:34
-	* @brief	: A highly optimized, buffer-based networking architecture featuring automatic data compression, packet routing, and local signal broadcasting.
-    * @version  : 0.7.0
+	* @file		  	: ...encodingTechiques.luau
+	* @author	  	: scrpt2r
+	* @date		  	: May 16 2026
+	* @lastEdit		: May 16 2026 22:11
+	* @brief	  	: Collection of encoding and bitwise techniques.
+	* @version		: 1.0.1
 	******************************************************************************
 	* @attention
 	*
@@ -19,8 +19,7 @@
 	******************************************************************************
 --]]
 
---// Lib Decleration
 return {
-	net = require(script.constructor),
-	packet = require(script.libs.utils.packet),
+	xor = require(script.libs.xor),
+	base64 = require(script.libs.base64),
 }
